@@ -20,14 +20,14 @@
 
     <div id="header" class="container-fluid">
       <div class="row">
-        <h1>Neural Frank-Wolfe Policy Optimization for Region-of-Interest Intra-Frame Coding with HEVC/H.265</h1>
+        <h1>Neural Frank-Wolfe Policy Optimization for <br/> Region-of-Interest Intra-Frame Coding with HEVC/H.265</h1>
         <div class="authors">
           Yung-Han Ho, Chia Hao Kao, Wen-Hsiao Peng, Ping-Chun Hsieh
         </div>
       </div>
     
       <p style="text-align:center;">
-              <a href="https://www.nctu.edu.tw/en" target="_blank"><img src="assets/210204-NYCU (1).png" height="100"></a>
+              <a href="https://en.nycu.edu.tw/" target="_blank"><img src="assets/210204-NYCU (1).png" height="80"></a>
                
               <a href="http://mapl.nctu.edu.tw/" target="_blank"><img src="assets/mapl_logo.png"  height="100"></a>
       </p>
@@ -39,21 +39,9 @@
     <div class="container" id="banner">
     <h2>Overview</h2>
     <p style="text-align:center;">
-      <img src="assets/architecture.png" width="80%">
+      <img src="assets/architecture.png" width="65%">
     </p>
     </div>
-
-    <div class="container" id="paperdiv">
-      <h2>Paper</h2>
-      <a href="assets/paper.pdf" download="newfilename">Download the pdf</a>
-        <div class="thumbs">
-          <img src="assets/thumbnails/paper_1.jpeg" width="20%">
-          <img src="assets/thumbnails/paper_2.jpeg" width="20%">
-          <img src="assets/thumbnails/paper_3.jpeg" width="20%">
-          <img src="assets/thumbnails/paper_4.jpeg" width="20%">
-          <img src="assets/thumbnails/paper_5.jpeg" width="20%">
-        </div>
-      </a>
       
     <!-- <div class="row">
       <div class="col-sm-3">
@@ -77,12 +65,24 @@
     <div class="container" id="method">
     <h2>Method</h2>
     <p style="text-align:center;">
-    <img src="assets/adapted_NFWPO_v2.png" width="80%">
+    <img src="assets/adapted_NFWPO_v2.png" width="60%">
     </p>
     <br>
     <p>
       In this paper, we propose an action-constrained RLframework via Neural Frank-Wolfe Policy Optimization (NFWPO), aiming for ROI-based intra-frame coding. Similar to [6], our scheme is composed of a distortion critic and a rate critic. However, unlike [6], we apply the rate critic in specifying a state-dependent action feasible set. We then utilize NFWPO together with the distortion critic to identify within the feasible set an action that minimizes the ROI-weighted distortion. The action thus chosen serves as a target for training the agent. We stress that our work also differs from the vanilla NFWPO [7] in that our action feasible set is dynamically determined via the rate critic rather than predefined.
     </p></div>
+
+    <div class="container" id="paperdiv">
+      <h2>Paper</h2>
+      <a href="assets/paper.pdf" download="Neural Frank-Wolfe Policy Optimization for Region-of-Interest Intra-Frame Coding with HEVC/H.265.pdf">
+        <div class="thumbs">
+          <img src="assets/thumbnails/paper_1.jpg" width="18%">
+          <img src="assets/thumbnails/paper_2.jpg" width="18%">
+          <img src="assets/thumbnails/paper_3.jpg" width="18%">
+          <img src="assets/thumbnails/paper_4.jpg" width="18%">
+          <img src="assets/thumbnails/paper_5.jpg" width="18%">
+        </div>
+      </a>
 
     <div class="container" id="exp_results">
     <h2>Example Results</h2>
