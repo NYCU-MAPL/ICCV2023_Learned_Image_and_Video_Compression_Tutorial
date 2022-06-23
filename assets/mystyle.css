@@ -5,18 +5,18 @@ body {
   font-size: 18px;
 }
 h1 {
-  font-size: 40px;
+  font-size: 50px;
   color: #555;
-  font-weight: 400;
+  font-weight: 600;
   text-align: center;
   margin: 0;
   padding: 0;
   margin-top: 50px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 .authors {
   color: #222;
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 300;
   text-align: center;
   margin: 0;
@@ -44,7 +44,7 @@ h1 {
   margin-bottom: 20px;
 }
 h2 {
-  font-size: 24px;
+  font-size: 32px;
   font-weight: 900;
   border-bottom: 1px solid #999;
   margin-bottom: 20px;
