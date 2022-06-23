@@ -27,7 +27,7 @@
       </div>
     
       <p style="text-align:center;">
-              <a href="https://www.nctu.edu.tw/en" target="_blank"><img src="assets/NCTU_logo.png" height="100"></a>
+              <a href="https://www.nctu.edu.tw/en" target="_blank"><img src="assets/210204-NYCU (1).png" height="100"></a>
                
               <a href="http://mapl.nctu.edu.tw/" target="_blank"><img src="assets/mapl_logo.png"  height="100"></a>
       </p>
@@ -36,38 +36,26 @@
       <h2>Abstract</h2>
       This paper presents a reinforcement learning (RL) framework that utilizes Frank-Wolfe policy optimization to solve Coding-Tree-Unit (CTU) bit allocation for Region-of-Interest (ROI) intra-frame coding. Most previous RL-based methods employ the single-critic design, where the rewards for distortion minimization and rate regularization are weighted by an empirically chosen hyper-parameter. Recently, the dual-critic design is proposed to update the actor by alternating the rate and distortion critics. However, its convergence is not guaranteed. To address these issues, we introduce Neural Frank-Wolfe Policy Optimization (NFWPO) in formulating the CTU-level bit allocation as an action-constrained RL problem. In this new framework, we exploit a rate critic to predict a feasible set of actions. With this feasible set, a distortion critic is invoked to update the actor to maximize the ROI-weighted image quality subject to a rate constraint. Experimental results produced with x265 confirm the superiority of the proposed method to the other baselines.</div>
 
-    <div class="container" id="intro_video">
-    <h2>Introduction Video</h2>
+    <div class="container" id="banner">
+    <h2>Overview</h2>
     <p style="text-align:center;">
-      <iframe width="966" height="543" src="https://www.youtube.com/embed/YnD_zQNbfK4" frameborder="0" allowfullscreen></iframe>
+      <img src="assets/architecture.png" width="80%">
     </p>
     </div>
 
     <div class="container" id="paperdiv">
-      <h2>CVPR 2019 Paper</h2>
-      <a href="https://arxiv.org/abs/1903.12212" target="_blank">
+      <h2>Paper</h2>
+      <a href="assets/paper.pdf" download="newfilename">Download the pdf</a>
         <div class="thumbs">
-          <img src="assets/thumbnails/thumbnail_01.jpeg" width="13%">
-          <img src="assets/thumbnails/thumbnail_02.jpeg" width="13%">
-          <img src="assets/thumbnails/thumbnail_03.jpeg" width="13%">
-          <img src="assets/thumbnails/thumbnail_04.jpeg" width="13%">
-          <img src="assets/thumbnails/thumbnail_05.jpeg" width="13%">
-          <img src="assets/thumbnails/thumbnail_06.jpeg" width="13%">
-          <img src="assets/thumbnails/thumbnail_07.jpeg" width="13%">
-          <img src="assets/thumbnails/thumbnail_08.jpeg" width="13%">
-          <img src="assets/thumbnails/thumbnail_09.jpeg" width="13%">
-          <img src="assets/thumbnails/thumbnail_10.jpeg" width="13%">
+          <img src="assets/thumbnails/paper_1.jpeg" width="20%">
+          <img src="assets/thumbnails/paper_2.jpeg" width="20%">
+          <img src="assets/thumbnails/paper_3.jpeg" width="20%">
+          <img src="assets/thumbnails/paper_4.jpeg" width="20%">
+          <img src="assets/thumbnails/paper_5.jpeg" width="20%">
         </div>
       </a>
-      <div>
-        <pre class="citation">@inproceedings{chang2019all,
- title={All about Structure: Adapting Structural Information across Domains for Boosting Semantic Segmentation},
- author={Chang, Wei-Lun and Wang, Hui-Po and Peng, Wen-Hsiao and Chiu, Wei-Chen},
- booktitle={IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
- year={2019}
-}</pre>
-      </div>
-    <div class="row">
+      
+    <!-- <div class="row">
       <div class="col-sm-3">
       </div>
       <div class="col-sm-3">
@@ -84,20 +72,20 @@
       </p></a></div>
       <div class="col-sm-3">
       </div>
-    </div></div>
+    </div></div> -->
 
     <div class="container" id="method">
     <h2>Method</h2>
     <p style="text-align:center;">
-    <img src="assets/model.jpg" width="80%">
+    <img src="assets/adapted_NFWPO_v2.png" width="80%">
     </p>
     <br>
     <p>
-    An overview of the proposed domain-invariant structure extraction (DISE) framework for semantic segmentation. The DISE framework is composed of a common encoder $E_c$ shared across domains, two domain-specific private encoders, $E_p^s, E_p^t$, a pixel-wise classifier $T$, and a shared decoder $D$. It encodes an image, source-domain or target-domain, into a domain-specific texture component $z_p$ and a domain-invariant structure component $z_c$, as shown in part (a). With this disentanglement, it can translate an image  $x^s$ (respectively, $x^t$) in one domain to another image $\hat{x}^{s2t}$ (respectively, $\hat{x}^{t2s}$) in the other domain by combining the structure content of $x^s$ (respectively, $x^t$) with the texture appearance of $x^t$ (respectively, $x^s$), as shown in parts (b) and (c). This further enables the transfer of ground-truth labels from the source domain to the target domain, as illustrated in part (d).
+      In this paper, we propose an action-constrained RLframework via Neural Frank-Wolfe Policy Optimization (NFWPO), aiming for ROI-based intra-frame coding. Similar to [6], our scheme is composed of a distortion critic and a rate critic. However, unlike [6], we apply the rate critic in specifying a state-dependent action feasible set. We then utilize NFWPO together with the distortion critic to identify within the feasible set an action that minimizes the ROI-weighted distortion. The action thus chosen serves as a target for training the agent. We stress that our work also differs from the vanilla NFWPO [7] in that our action feasible set is dynamically determined via the rate critic rather than predefined.
     </p></div>
 
     <div class="container" id="exp_results">
-    <h2>Example Results (from GTA5 to Cityscapes)</h2>
+    <h2>Example Results</h2>
     <div id="comparison_source">
       <div class="col-md-6">
         <h3 style="text-align:center;">Source Only</h3>
