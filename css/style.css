@@ -1,0 +1,179 @@
+.avatar {
+  margin: 0px auto;
+}
+
+.btn {
+	//width: 74px;
+}
+
+#btn-back-to-top {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  display: none;
+  border-radius: 25px;
+}
+
+.teaser {
+  //vertical-align: middle;
+  height: 100px;
+}
+
+.row-header {
+	margin: 0px auto;
+	padding: 50px 0px 0px 0px;
+}
+
+.row-content {
+	margin: 0px auto;
+	padding: 50px 0px 50px 0px;
+	border-bottom: 1px ridge;
+	min-height: 200px;
+}
+
+.section {
+	margin: 0px auto;
+	padding: 50px 0px 50px 0px;
+	border-bottom: 1px ridge;
+}
+
+.sec-title {
+	margin: 0px auto;
+}
+
+div.text {
+	margin: 0px auto;
+	//padding: 0px 10px 0px 10px;
+	vertical-align: top;
+	text-align: left;
+}
+
+div.title {
+	font-weight: 600;
+}
+
+div.authors {
+	color: #ACABAB;
+}
+
+strong.me{
+	color: #000000;
+	text-decoration: underline;
+	display: inline;
+}
+
+.news_list {
+	list-style: none;
+}
+
+.news-date {
+	color: #e54304;
+	min-width: 130px;
+	padding: 0px 0px 0px 0px;
+	display: inline-block;
+}
+
+.pub-unit {
+	margin: 0px auto;
+	//height: 160px;
+	overflow-y: auto;
+	padding: 0px 0px 10px 0px;
+}
+
+.footer {
+	background-color: #4A6572;
+	margin: 0px auto;
+	padding: 20px 0px 20px 0px;
+}
+
+.jumbotron {
+	padding: 70px 30px 70px 30px;
+	margin: 0px auto;
+	background: #FFFFFF;
+	//background: #4A6572;
+	//color: floralwhite;
+}
+
+.address {
+	font-size: 80%;
+	margin: 0px;
+	color: #0f0f0f;
+}
+
+body {
+	//font: 1rem/1.5 var(--font-family-sans-serif);
+	font: 16.0px/1.5 Crimson Pro, serif;
+	padding: 50px 0px 0px 0px;
+	z-index: 0;
+	position: relative;
+
+}
+
+.navbar-dark {
+	background: #232F34;
+}
+
+.social-link {
+	list-style: none;
+}
+
+.social-icon {
+  width: 70px;
+  height: 70px;
+  text-align: center;
+  text-decoration: none;
+}
+
+mail {
+	font-family: "Ubuntu Mono";
+}
+/*
+.ai {
+  padding: 10px;
+  //font-size: 30px;
+  width: 50px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 50%;
+}
+*/
+/* Add a hover effect if you want */
+.fa-3x:hover {
+  opacity: 0.7;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+/* Set a specific color for each brand */
+
+.fa-github{
+  //background: #3B5998;
+  display: block;
+  margin: auto;
+  color: black;
+}
+
+.ai-google-scholar:hover {
+	opacity: 0.7;
+}
+
+.ai:focus {
+	opacity: 0.7;
+}
+
+.ai-google-scholar{
+  //background: #000000;
+  display: block;
+  text-align: center;
+  margin: auto;
+  color: black;
+}
+
+.fa-linkedin{
+  //background: #007bb5;
+  display: block;
+  margin: auto;
+  color: black;
+}
