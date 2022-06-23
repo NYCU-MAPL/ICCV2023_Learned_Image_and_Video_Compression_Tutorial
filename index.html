@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>All about Structure Adapting Structural Information across Domains for Boosting Semantic Segmentation (CVPR 2019)</title>
+    <title>Neural Frank-Wolfe Policy Optimization for Region-of-Interest Intra-Frame Coding with HEVC/H.265</title>
     <script type="text/javascript" src="assets/latexit.js"></script>
     <script type="text/javascript">
     LatexIT.add('p',true);
@@ -20,13 +20,9 @@
 
     <div id="header" class="container-fluid">
       <div class="row">
-        <h1>All about Structure:<br/> Adapting Structural Information across Domains for Boosting Semantic Segmentation</h1>
+        <h1>Neural Frank-Wolfe Policy Optimization for Region-of-Interest Intra-Frame Coding with HEVC/H.265</h1>
         <div class="authors">
-          <a href="https://wilsonchang0223.github.io" target="_blank">Wei-Lun Chang*</a>, 
-          <a href="https://a514514772.github.io/", target="_blank">Hui-Po Wang*</a>, 
-          <a href="https://sites.google.com/g2.nctu.edu.tw/wpeng/cv", target="_blank">Wen-Hsiao Peng</a>, 
-          <a href="https://walonchiu.github.io/", target="_blank">Wei-Chen Chiu</a>
-          <center>(*indicates equal contribution)</center>
+          Yung-Han Ho, Chia Hao Kao, Wen-Hsiao Peng, Ping-Chun Hsieh
         </div>
       </div>
     
@@ -34,13 +30,11 @@
               <a href="https://www.nctu.edu.tw/en" target="_blank"><img src="assets/NCTU_logo.png" height="100"></a>
                
               <a href="http://mapl.nctu.edu.tw/" target="_blank"><img src="assets/mapl_logo.png"  height="100"></a>
-               
-              <a href="https://walonchiu.github.io/" target="_blank"><img src="assets/EVA_Logo.jpg" height="100"></a>
       </p>
     </div>
     <div class="container" id="abstractdiv">
       <h2>Abstract</h2>
-      In this paper we tackle the problem of unsupervised domain adaptation for the task of semantic segmentation, where we attempt to transfer the knowledge learned upon synthetic datasets with ground-truth labels to real-world images without any annotation. With the hypothesis that the structural content of images is the most informative and decisive factor to semantic segmentation and can be readily shared across domains, we propose a Domain Invariant Structure Extraction (DISE) framework to disentangle images into domain-invariant structure and domain-specific texture representations, which can further realize image-translation across domains and enable label transfer to improve segmentation performance. Extensive experiments verify the effectiveness of our proposed DISE model and demonstrate its superiority over several state-of-the-art approaches.</div>
+      This paper presents a reinforcement learning (RL) framework that utilizes Frank-Wolfe policy optimization to solve Coding-Tree-Unit (CTU) bit allocation for Region-of-Interest (ROI) intra-frame coding. Most previous RL-based methods employ the single-critic design, where the rewards for distortion minimization and rate regularization are weighted by an empirically chosen hyper-parameter. Recently, the dual-critic design is proposed to update the actor by alternating the rate and distortion critics. However, its convergence is not guaranteed. To address these issues, we introduce Neural Frank-Wolfe Policy Optimization (NFWPO) in formulating the CTU-level bit allocation as an action-constrained RL problem. In this new framework, we exploit a rate critic to predict a feasible set of actions. With this feasible set, a distortion critic is invoked to update the actor to maximize the ROI-weighted image quality subject to a rate constraint. Experimental results produced with x265 confirm the superiority of the proposed method to the other baselines.</div>
 
     <div class="container" id="intro_video">
     <h2>Introduction Video</h2>
