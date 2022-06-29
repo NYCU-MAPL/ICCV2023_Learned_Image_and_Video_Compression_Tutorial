@@ -14,6 +14,7 @@
     <link href="assets/bootstrap.css" rel="stylesheet">
     <link href="assets/css.css" rel="stylesheet" type="text/css">
     <link href="assets/mystyle.css" rel="stylesheet">
+    <link href="assets/lightbox2-2.11.3/dist/css/lightbox.css" rel="stylesheet" />
 
   </head>
   <body>
@@ -39,7 +40,7 @@
     <div class="container" id="banner">
     <h2>Overview</h2>
     <p style="text-align:center;">
-      <img src="assets/architecture.png" width="65%">
+      <a href="assets/architecture.png" data-lightbox="arch"><img src="assets/architecture.png" data-lightbox="arch" width="65%"></a>
     </p>
     </div>
       
@@ -65,7 +66,7 @@
     <div class="container" id="method">
     <h2>Method</h2>
     <p style="text-align:center;">
-    <img src="assets/adapted_NFWPO_v2.png" width="60%">
+    <a href="assets/adapted_NFWPO_v2.png" data-lightbox="nfwpo"><img src="assets/adapted_NFWPO_v2.png" width="60%"></a>
     </p>
     <br>
     <p>
@@ -76,44 +77,65 @@
       <h2>Paper</h2>
       <a href="assets/paper.pdf" download="Neural Frank-Wolfe Policy Optimization for Region-of-Interest Intra-Frame Coding with HEVC/H.265.pdf">
         <div class="thumbs">
-          <img src="assets/thumbnails/paper_1.jpg" width="18%">
-          <img src="assets/thumbnails/paper_2.jpg" width="18%">
-          <img src="assets/thumbnails/paper_3.jpg" width="18%">
-          <img src="assets/thumbnails/paper_4.jpg" width="18%">
-          <img src="assets/thumbnails/paper_5.jpg" width="18%">
+          <img src="assets/thumbnails/paper_1.jpg" width="19%">
+          <img src="assets/thumbnails/paper_2.jpg" width="19%">
+          <img src="assets/thumbnails/paper_3.jpg" width="19%">
+          <img src="assets/thumbnails/paper_4.jpg" width="19%">
+          <img src="assets/thumbnails/paper_5.jpg" width="19%">
         </div>
       </a>
 
     <div class="container" id="exp_results">
     <h2>Example Results</h2>
-    <div id="comparison_source">
+    <p>
+      The reconstruction quality and QP assignment comparisons on images selected from DAVIS and COCO dataset. The region highlighted by red outlines are the region of interest. <b>Click on image to enlarge it.</b>
+    </p>
+    <div id="exp1">
       <div class="col-md-6">
-        <h3 style="text-align:center;">Source Only</h3>
-        <img src="assets/gif/source_only.gif">
+        <p style="text-align:center;">
+          <a href="assets/figures/subjective_cqp_goat_69.png" data-lightbox="Exp1"><img src="assets/figures/subjective_cqp_goat_69.png" width="110%"></a>
+        </p>
       </div>
       <div class="col-md-6">
-        <h3 style="text-align:center;">DISE (ours)</h3>
-        <img src="assets/gif/dise.gif">
+        <p style="text-align:center;">
+          <a href="assets/figures/heatmap_goat_69.png" data-lightbox="Exp1"><img src="assets/figures/heatmap_goat_69.png"  width="80%"></a>
+        </p>
       </div>
     </div>
     <div class="col-md-12"><hr></div>
-    <div id="comparison_tsai">
+    <div id="exp2">
       <div class="col-md-6">
-        <h3 style="text-align:center;">Tsai <i>et al.</i></h3>
-        <img src="assets/gif/tsai.gif">
+        <p style="text-align:center;">
+          <a href="assets/figures/COCOw_512x320_25_1133_f490.png" data-lightbox="Exp2"><img src="assets/figures/COCOw_512x320_25_1133_f490.png" width="110%"></a>
+        </p>
       </div>
       <div class="col-md-6">
-        <h3 style="text-align:center;">DISE (ours)</h3>
-        <img src="assets/gif/dise_1.gif">
+        <p style="text-align:center;">
+          <a href="assets/figures/COCOw_512x320_25_f490heatmap37_heatmap.png" data-lightbox="Exp2"><img src="assets/figures/COCOw_512x320_25_f490heatmap37_heatmap.png"  width="80%"></a>
+        </p>
       </div>
     </div>
-
+    <div class="col-md-12"><hr></div>
+    <div id="exp2">
+      <div class="col-md-6">
+        <p style="text-align:center;">
+          <a href="assets/figures/COCOw_512x320_25_1133_f1210.png" data-lightbox="Exp2"><img src="assets/figures/COCOw_512x320_25_1133_f1210.png" width="110%"></a>
+        </p>
+      </div>
+      <div class="col-md-6">
+        <p style="text-align:center;">
+          <a href="assets/figures/COCOw_512x320_25_f1210heatmap37_heatmap.png" data-lightbox="Exp2"><img src="assets/figures/COCOw_512x320_25_f1210heatmap37_heatmap.png"  width="80%"></a>
+        </p>
+      </div>
+    </div>
+    
     </div>
 
     <div id=footer><br></div>
     <!-- Javascript includes -->
     <script src="assets/jquery-1.js"></script>
     <script src="assets/bootstrap.js"></script>
+    <script src="assets/lightbox2-2.11.3/dist/js/lightbox.js"></script>
   
 
 </body></html>
