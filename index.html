@@ -1,49 +1,74 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Neural Frank-Wolfe Policy Optimization for Region-of-Interest Intra-Frame Coding with HEVC/H.265</title>
-    <script type="text/javascript" src="assets/latexit.js"></script>
-    <script type="text/javascript">
-    LatexIT.add('p',true);
-    </script>
+<html lang="en">
 
-    <!-- CSS includes -->
-    <link href="assets/bootstrap.css" rel="stylesheet">
-    <link href="assets/css.css" rel="stylesheet" type="text/css">
-    <link href="assets/mystyle.css" rel="stylesheet">
-    <link href="assets/lightbox2-2.11.3/dist/css/lightbox.css" rel="stylesheet" />
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Neural Frank-Wolfe Policy Optimization for Region-of-Interest Intra-Frame Coding with HEVC/H.265</title>
+  <script type="text/javascript" src="assets/latexit.js"></script>
+  <script type="text/javascript">
+    LatexIT.add('p', true);
+  </script>
 
-  </head>
-  <body>
+  <!-- CSS includes -->
+  <link href="assets/bootstrap.css" rel="stylesheet">
+  <link href="assets/css.css" rel="stylesheet" type="text/css">
+  <link href="assets/mystyle.css" rel="stylesheet">
+  <link href="assets/lightbox2-2.11.3/dist/css/lightbox.css" rel="stylesheet" />
 
-    <div id="header" class="container-fluid">
-      <div class="row">
-        <h1>Neural Frank-Wolfe Policy Optimization for <br/> Region-of-Interest Intra-Frame Coding with HEVC/H.265</h1>
-        <div class="authors">
-          Yung-Han Ho, Chia-Hao Kao, Wen-Hsiao Peng, Ping-Chun Hsieh
-        </div>
+</head>
+
+<body>
+
+  <div id="header" class="container-fluid">
+    <div class="row">
+      <h1>Neural Frank-Wolfe Policy Optimization for <br /> Region-of-Interest Intra-Frame Coding with HEVC/H.265</h1>
+      <div class="authors">
+        Yung-Han Ho, Chia-Hao Kao, Wen-Hsiao Peng, Ping-Chun Hsieh
       </div>
-    
-      <p style="text-align:center;">
-              <a href="https://en.nycu.edu.tw/" target="_blank"><img src="assets/210204-NYCU (1).png" height="80"></a>
-               
-              <a href="http://mapl.nctu.edu.tw/" target="_blank"><img src="assets/mapl_logo.png"  height="100"></a>
-      </p>
     </div>
-    <div class="container" id="abstractdiv">
-      <h2>Abstract</h2>
-      This paper presents a reinforcement learning (RL) framework that utilizes Frank-Wolfe policy optimization to solve Coding-Tree-Unit (CTU) bit allocation for Region-of-Interest (ROI) intra-frame coding. Most previous RL-based methods employ the single-critic design, where the rewards for distortion minimization and rate regularization are weighted by an empirically chosen hyper-parameter. Recently, the dual-critic design is proposed to update the actor by alternating the rate and distortion critics. However, its convergence is not guaranteed. To address these issues, we introduce Neural Frank-Wolfe Policy Optimization (NFWPO) in formulating the CTU-level bit allocation as an action-constrained RL problem. In this new framework, we exploit a rate critic to predict a feasible set of actions. With this feasible set, a distortion critic is invoked to update the actor to maximize the ROI-weighted image quality subject to a rate constraint. Experimental results produced with x265 confirm the superiority of the proposed method to the other baselines.</div>
 
-    <div class="container" id="banner">
+    <p style="text-align:center;">
+      <a href="https://en.nycu.edu.tw/" target="_blank"><img src="assets/210204-NYCU (1).png" height="80"></a>
+       
+      <a href="http://mapl.nctu.edu.tw/" target="_blank"><img src="assets/mapl_logo.png" height="100"></a>
+    </p>
+  </div>
+  <div class="container" id="abstractdiv">
+    <h2>Abstract</h2>
+    This paper presents a reinforcement learning (RL) framework that utilizes Frank-Wolfe policy optimization to solve
+    Coding-Tree-Unit (CTU) bit allocation for Region-of-Interest (ROI) intra-frame coding. Most previous RL-based
+    methods employ the single-critic design, where the rewards for distortion minimization and rate regularization are
+    weighted by an empirically chosen hyper-parameter. Recently, the dual-critic design is proposed to update the actor
+    by alternating the rate and distortion critics. However, its convergence is not guaranteed. To address these issues,
+    we introduce Neural Frank-Wolfe Policy Optimization (NFWPO) in formulating the CTU-level bit allocation as an
+    action-constrained RL problem. In this new framework, we exploit a rate critic to predict a feasible set of actions.
+    With this feasible set, a distortion critic is invoked to update the actor to maximize the ROI-weighted image
+    quality subject to a rate constraint. Experimental results produced with x265 confirm the superiority of the
+    proposed method to the other baselines.
+  </div>
+
+  <div class="container" id="banner">
     <h2>Overview</h2>
     <p style="text-align:center;">
-      <a href="assets/architecture.png" data-lightbox="arch"><img src="assets/architecture.png" data-lightbox="arch" width="65%"></a>
+      <a href="assets/architecture.png" data-lightbox="arch"><img src="assets/architecture.png" data-lightbox="arch"
+          width="65%"></a>
+    </p>
+    <br>
+    <p>
+      The figure illustrates our action-constrained RL framework. When encoding CTU $i$, a state $s_i$ is first evaluated.
+      With the state as input, our RL agent outputs an action (QP). The x265 codec then encodes CTU $i$, we then evaluate
+      a distortion reward and a rate reward. These steps are repeated until all the CTUs in a frame are encoded. At training
+      time, the agent interacts with x265 by encoding every frame as an episodic task. We utilize the distortion and rate
+      critics to predict the distortion and rate reward-to-go, respectively. The
+      rate critic, which predicts the rate deviation from target bitrate at the end of encoding a frame, enables us to specify a
+      feasible set $\mathcal{C}(s_i)$ of action. The distortion critic, which estimates the cumulative distortion, guides
+      the agent to minimize the total ROI-weighted distortion.
     </p>
     </div>
-      
+    
     <!-- <div class="row">
       <div class="col-sm-3">
       </div>
@@ -60,75 +85,105 @@
         Paper (arXiv)
       </p></a></div>
       <div class="col-sm-3">
+      </div></div>
+      </div> -->
+      
+      <div class="container" id="method">
+        <h2>Method</h2>
+        <p style="text-align:center;">
+          <a href="assets/adapted_NFWPO_v2.png" data-lightbox="nfwpo"><img src="assets/adapted_NFWPO_v2.png" width="60%"></a>
+        </p>
+        <br>
+        <p>
+          In our proposed method, we first identify the feasible set $\mathcal{C}(s_i)$ by the rate critic. To satisfy target bitrate,
+          $\mathcal{C}(s_i)$ includes the QP values $QP_i$ that the rate reward-to-go $Q_R$ is greater than or equal
+          to a threshold $\epsilon$ (see figure (a)).
+          Then, we utilize NFWPO to update the actor network in three consecutive steps. First, it identifies a feasible update direction
+          $\bar{c}(s)$ through distortion reward-to-go $Q_D$ and feasible set. Second, a reference action $\tilde{a_{s_i}}$ is evaluated by taking a small step along the update direction
+          from projected initial action $\prod\nolimits_{\mathcal{C}(s)}(\pi(s))$. Lastly, it learns the actor network through gradient decent
+          by minimizing the squared error between the reference action.
+        </p>
       </div>
-    </div></div> -->
-
-    <div class="container" id="method">
-    <h2>Method</h2>
-    <p style="text-align:center;">
-    <a href="assets/adapted_NFWPO_v2.png" data-lightbox="nfwpo"><img src="assets/adapted_NFWPO_v2.png" width="60%"></a>
-    </p>
-    <br>
-    <p>
-      In this paper, we propose an action-constrained RLframework via Neural Frank-Wolfe Policy Optimization (NFWPO), aiming for ROI-based intra-frame coding. Similar to [6], our scheme is composed of a distortion critic and a rate critic. However, unlike [6], we apply the rate critic in specifying a state-dependent action feasible set. We then utilize NFWPO together with the distortion critic to identify within the feasible set an action that minimizes the ROI-weighted distortion. The action thus chosen serves as a target for training the agent. We stress that our work also differs from the vanilla NFWPO [7] in that our action feasible set is dynamically determined via the rate critic rather than predefined.
-    </p></div>
-
-    <div class="container" id="paperdiv">
-      <h2>Paper</h2>
-      <a href="assets/paper.pdf" download="Neural Frank-Wolfe Policy Optimization for Region-of-Interest Intra-Frame Coding with HEVC/H.265.pdf">
-        <div class="thumbs">
-          <img src="assets/thumbnails/paper_1.jpg" width="19%">
-          <img src="assets/thumbnails/paper_2.jpg" width="19%">
-          <img src="assets/thumbnails/paper_3.jpg" width="19%">
-          <img src="assets/thumbnails/paper_4.jpg" width="19%">
-          <img src="assets/thumbnails/paper_5.jpg" width="19%">
-        </div>
-      </a>
+      
+      <div class="container" id="paperdiv">
+        <h2>Paper</h2>
+        <a href="assets/paper.pdf"
+          download="Neural Frank-Wolfe Policy Optimization for Region-of-Interest Intra-Frame Coding with HEVC/H.265.pdf">
+          <div class="thumbs">
+        <img src="assets/thumbnails/paper_1.jpg" width="19%">
+        <img src="assets/thumbnails/paper_2.jpg" width="19%">
+        <img src="assets/thumbnails/paper_3.jpg" width="19%">
+        <img src="assets/thumbnails/paper_4.jpg" width="19%">
+        <img src="assets/thumbnails/paper_5.jpg" width="19%">
+      </div>
+    </a>
 
     <div class="container" id="exp_results">
-    <h2>Example Results</h2>
-    <p>
-      The reconstruction quality and QP assignment comparisons on images selected from DAVIS and COCO dataset. The region highlighted by red outlines are the region of interest. <b>Click on image to enlarge it.</b>
-    </p>
-    <div id="exp1">
-      <div class="col-md-6">
+      <h2>Example Results</h2>
+      <p>
+        The reconstruction quality and QP assignment comparisons on images selected from DAVIS and COCO dataset. The
+        region highlighted by red outlines are the region of interest. <b>Click on image to enlarge it.</b>
+      </p>
+      <div class="col-md-6 text-center">
         <p style="text-align:center;">
-          <a href="assets/figures/subjective_cqp_goat_69.png" data-lightbox="Exp1"><img src="assets/figures/subjective_cqp_goat_69.png" width="110%"></a>
+        <h3>Reconstruction Images</h3>
         </p>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6 text-center">
         <p style="text-align:center;">
-          <a href="assets/figures/heatmap_goat_69.png" data-lightbox="Exp1"><img src="assets/figures/heatmap_goat_69.png"  width="80%"></a>
+        <h3>QP Assignment Heatmap</h3>
         </p>
       </div>
-    </div>
-    <div class="col-md-12"><hr></div>
-    <div id="exp2">
-      <div class="col-md-6">
-        <p style="text-align:center;">
-          <a href="assets/figures/COCOw_512x320_25_1133_f490.png" data-lightbox="Exp2"><img src="assets/figures/COCOw_512x320_25_1133_f490.png" width="110%"></a>
-        </p>
+
+      <div id="exp1">
+        <div class="col-md-6 vcenter">
+          <p style="text-align:center;">
+            <a href="assets/figures/subjective_cqp_goat_69.png" data-lightbox="Exp1"><img
+                src="assets/figures/subjective_cqp_goat_69.png" width="100%"></a>
+          </p>
+        </div><!--
+      --><div class="col-md-6 vcenter">
+          <p style="text-align:center;">
+            <a href="assets/figures/heatmap_goat_69.png" data-lightbox="Exp1"><img
+                src="assets/figures/heatmap_goat_69.png" width="100%"></a>
+          </p>
+        </div>
       </div>
-      <div class="col-md-6">
-        <p style="text-align:center;">
-          <a href="assets/figures/COCOw_512x320_25_f490heatmap37_heatmap.png" data-lightbox="Exp2"><img src="assets/figures/COCOw_512x320_25_f490heatmap37_heatmap.png"  width="80%"></a>
-        </p>
+      <div class="col-md-12">
+        <hr>
       </div>
-    </div>
-    <div class="col-md-12"><hr></div>
-    <div id="exp2">
-      <div class="col-md-6">
-        <p style="text-align:center;">
-          <a href="assets/figures/COCOw_512x320_25_1133_f1210.png" data-lightbox="Exp2"><img src="assets/figures/COCOw_512x320_25_1133_f1210.png" width="110%"></a>
-        </p>
+      <div id="exp2">
+        <div class="col-md-6 vcenter">
+          <p style="text-align:center;">
+            <a href="assets/figures/COCOw_512x320_25_1133_f490.png" data-lightbox="Exp2"><img
+                src="assets/figures/COCOw_512x320_25_1133_f490.png" width="100%"></a>
+          </p>
+        </div><!--
+      --><div class="col-md-6 vcenter">
+          <p style="text-align:center;">
+            <a href="assets/figures/COCOw_512x320_25_f490heatmap37_heatmap.png" data-lightbox="Exp2"><img
+                src="assets/figures/COCOw_512x320_25_f490heatmap37_heatmap.png" width="100%"></a>
+          </p>
+        </div>
       </div>
-      <div class="col-md-6">
-        <p style="text-align:center;">
-          <a href="assets/figures/COCOw_512x320_25_f1210heatmap37_heatmap.png" data-lightbox="Exp2"><img src="assets/figures/COCOw_512x320_25_f1210heatmap37_heatmap.png"  width="80%"></a>
-        </p>
+      <div class="col-md-12">
+        <hr>
       </div>
-    </div>
-    
+      <div id="exp2">
+        <div class="col-md-6 vcenter">
+          <p style="text-align:center;">
+            <a href="assets/figures/COCOw_512x320_25_1133_f1210.png" data-lightbox="Exp3"><img
+                src="assets/figures/COCOw_512x320_25_1133_f1210.png" width="100%"></a>
+          </p>
+        </div><!--
+      --><div class="col-md-6 vcenter">
+          <p style="text-align:center;">
+            <a href="assets/figures/COCOw_512x320_25_f1210heatmap37_heatmap.png" data-lightbox="Exp3"><img
+                src="assets/figures/COCOw_512x320_25_f1210heatmap37_heatmap.png" width="100%"></a>
+          </p>
+        </div>
+      </div>
+
     </div>
 
     <div id=footer><br></div>
@@ -136,6 +191,8 @@
     <script src="assets/jquery-1.js"></script>
     <script src="assets/bootstrap.js"></script>
     <script src="assets/lightbox2-2.11.3/dist/js/lightbox.js"></script>
-  
 
-</body></html>
+
+</body>
+
+</html>
