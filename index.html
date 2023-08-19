@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Neural Frank-Wolfe Policy Optimization for Region-of-Interest Intra-Frame Coding with HEVC/H.265</title>
+  <title>End-to-End Learned Image and Video Compression: Design, Implementation, and Computer Vision Applications</title>
   <script type="text/javascript" src="assets/latexit.js"></script>
   <script type="text/javascript">
     LatexIT.add('p', true);
@@ -24,171 +24,385 @@
 
   <div id="header" class="container-fluid">
     <div class="row">
-      <h1>Neural Frank-Wolfe Policy Optimization for <br /> Region-of-Interest Intra-Frame Coding with HEVC/H.265</h1>
-      <div class="authors">
-        Yung-Han Ho, Chia-Hao Kao, Wen-Hsiao Peng, Ping-Chun Hsieh
-      </div>
+      <h1>End-to-End Learned Image and Video Compression: <br /> Design, Implementation, and Computer Vision Applications</h1>
       <div class="conference">
-        VCIP 2022
+        ICCV 2023 Tutorial
+      </div>      
+      <div class="date">
+        Date and Time: 09:00 - 13:00 (UTC+2),  Oct. 2, 2023
       </div>
     </div>
 
-    <p style="text-align:center;">
-      <a href="https://en.nycu.edu.tw/" target="_blank"><img src="assets/210204-NYCU (1).png" height="80"></a>
+    <!-- <p style="text-align:center;">
+      <a href="https://en.nycu.edu.tw/" target="_blank"><img src="assets/icon/210204-NYCU (1).png" height="90"></a>
        
-      <a href="http://mapl.nctu.edu.tw/" target="_blank"><img src="assets/mapl_logo.png" height="100"></a>
-    </p>
+      <a href="http://mapl.nctu.edu.tw/" target="_blank"><img src="assets/icon/mapl_logo.png" height="120"></a>
+    </p> -->
   </div>
   <div class="container" id="abstractdiv">
     <h2>Abstract</h2>
-    This paper presents a reinforcement learning (RL) framework that utilizes Frank-Wolfe policy optimization to solve
-    Coding-Tree-Unit (CTU) bit allocation for Region-of-Interest (ROI) intra-frame coding. Most previous RL-based
-    methods employ the single-critic design, where the rewards for distortion minimization and rate regularization are
-    weighted by an empirically chosen hyper-parameter. Recently, the dual-critic design is proposed to update the actor
-    by alternating the rate and distortion critics. However, its convergence is not guaranteed. To address these issues,
-    we introduce Neural Frank-Wolfe Policy Optimization (NFWPO) in formulating the CTU-level bit allocation as an
-    action-constrained RL problem. In this new framework, we exploit a rate critic to predict a feasible set of actions.
-    With this feasible set, a distortion critic is invoked to update the actor to maximize the ROI-weighted image
-    quality subject to a rate constraint. Experimental results produced with x265 confirm the superiority of the
-    proposed method to the other baselines.
+    <p>
+    End-to-end learned image and video compression is a fast growing research area. 
+    There have been more than 100+ publications in the literature in the last few years, 
+    with the state-of-the-art end-to-end learned image compression showing comparable 
+    compression performance to H.266/Versatile Video Coding (VVC) intra coding in terms 
+    of Peak-Signal-to-Noise-Ratio-RGB (PSNR-RGB) and much better Multi-Scale Structural Similarity (MS-SSIM) results. End-to-end learned video coding is also catching up quickly. Some preliminary studies report comparable PSNR-RGB results to H.265/High-Efficiency Video Coding (HEVC) or even H.266/VVC under the low-delay setting. These interesting results have led to intense activity in international standards organizations, e.g. JPEG AI and various challenges, e.g. Challenge on Learned Image Compression (CLIC) at CVPR and Grand Challenge on Neural Network-based Video Coding at the IEEE International Symposium on Circuits and Systems (ISCAS).
+    </p><p>
+    This tutorial shall (1) summarize the progress of this topic in the past three or so years, 
+    including an overview of recent standardization activities in JPEG AI and MPEG VCM, 
+    (2) introduce the basics of learned image compression that builds upon variational autoencoders 
+    and/or flow models. We will also look into the complexity aspects of learned image compression systems 
+    and explore some recent low-complexity algorithms and architectures. In the third part, 
+    we shall (3) explore an emerging school of thought for learned video compression that leverages 
+    conditional generative models for more efficient inter-frame coding. Lastly, 
+    (4) we shall look at the application of end-to-end learned image/video compression to computer vision tasks, 
+    an emerging research area also known as image and video coding for machines.
+    </p>
   </div>
 
-  <div class="container" id="banner">
-    <h2>Overview</h2>
+  <!-- <div class="container" id="exp_results">
+    <h2>Speakers</h2>
+    <div class="col-xs-6">
     <p style="text-align:center;">
-      <a href="assets/architecture.png" data-lightbox="arch"><img src="assets/architecture.png" data-lightbox="arch"
-          width="65%"></a>
+      <a href="https://sites.google.com/g2.nctu.edu.tw/wpeng" data-lightbox="arch"><img class="people-pic" src="assets/Peng.png"
+          width="25%"></a>
     </p>
-    <br>
-    <p>
-      The figure illustrates our action-constrained RL framework. When encoding CTU $i$, a state $s_i$ is first evaluated.
-      With the state as input, our RL agent outputs an action (QP). The x265 codec then encodes CTU $i$, we then evaluate
-      a distortion reward and a rate reward. These steps are repeated until all the CTUs in a frame are encoded. At training
-      time, the agent interacts with x265 by encoding every frame as an episodic task. We utilize the distortion and rate
-      critics to predict the distortion and rate reward-to-go, respectively. The
-      rate critic, which predicts the rate deviation from target bitrate at the end of encoding a frame, enables us to specify a
-      feasible set $\mathcal{C}(s_i)$ of action. The distortion critic, which estimates the cumulative distortion, guides
-      the agent to minimize the total ROI-weighted distortion. 
+    <p style="text-align:center;">
+      <div class="people-name">
+        <a href="https://sites.google.com/g2.nctu.edu.tw/wpeng">Wen-Hsiao Peng</a>
+        <h6>National Yang Ming Chiao Tung University</h6>
+      </div>
     </p>
+    <p style="text-align:center;">
+      <a href="https://sites.google.com/g2.nctu.edu.tw/wpeng"><img src="assets/icon/web.png" height="20"> Website</a>
+      <a href="mailto:wpeng@cs.nctu.edu.tw"><img src="assets/icon/email.jpg" height="23"> Email</a>
+    </p>    
+    </div>   -->
+<!-- 
+    <div class="col-xs-6">
+    <p style="text-align:center;">
+      <a href="https://scholar.google.com/citations?user=LtkiCFcAAAAJ&hl=en" data-lightbox="arch"><img class="people-pic" src="assets/Sun_revise.png" data-lightbox="arch"
+          width="25%"></a>
+    </p>
+    <p style="text-align:center;">
+      <div class="people-name">
+        <a href="https://scholar.google.com/citations?user=LtkiCFcAAAAJ&hl=en">Heming Sun</a>
+        <h6>Waseda University</h6>
+      </div>
+    </p>
+    <p style="text-align:center;">
+      <a href="https://scholar.google.com/citations?user=LtkiCFcAAAAJ&hl=en"><img src="assets/icon/web.png" height="20"> Website </a>
+      <a href="mailto:hemingsun@aoni.waseda.jp"><img src="assets/icon/email.jpg" height="23"> Email</a>
+    </p>    
+  </div>
+  </div> -->
+
+  <div class="container" id="exp_results">
+  <div class="row">
+    <div class="col-xs-12">
+       <h2>Outline</h2>
+       <table class="table schedule" style="border:none !important;">
+        <thead class="thead-light">
+          <tr>
+            <th>Time (UTC+2)</th>
+          <th>Title</th>
+          <!-- <th>Speaker</th> -->
+          </tr>
+        </thead>
+        <tbody>
+  
+          <tr>
+              <td>09:00 - 09:20</td>
+              <td><b>Overview of Learned Image and Video Compression (Wen-Hsiao Peng)</b>
+                <ol>
+                  <li>Introduction to end-to-end learned image and video compression</li>
+                  <li>Rate-distortion performance of learned image and video compression</li>
+                  <li>Recent developments in CLIC, JPEG AI, and MPEG video coding for machines</li>
+                </ol></td>
+              <!-- <td><p>Wen-Hsiao Peng</p></td> -->
+          </tr>
+  
+          <tr>
+              <td>09:20 - 10:40</td>
+              <td><b>End-to-End Learned Image Compression (Heming Sun)</b>
+                <ol>
+                  <li>Elements of end-to-end learned image compression</li>
+                  <li>Review of a few notable systems </li>
+                  <li>Parallel-friendly learned entropy coding </li>
+                  <li>Complexity analysis of learned image compression</li>
+                  <li>Real-time implementation of learned image compression</li>
+                </ol></td>
+              <!-- <td><p>Heming Sun</p></td> -->
+          </tr>
+  
+          <tr>
+              <td>10:40 - 11:00</td>
+              <td><b>Coffee Break</b></td>
+              <!-- <td><p></p></td> -->
+          </tr>
+
+          <tr>
+            <td>11:00 - 12:10</td>
+            <td><b>End-to-End Learned Video Compression (Wen-Hsiao Peng)</b>
+              <ol>
+                <li>Elements of end-to-end learned video compression</li>
+                <li>Learned video compression with residual-based inter-frame coding</li>
+                <li>Learned video compression with conditional inter-frame coding</li>
+                <li>Complexity analysis of learned video compression</li>
+              </ol></td>
+            <!-- <td><p>Wen-Hsiao Peng</p></td> -->
+          </tr>
+  
+          <tr>
+            <td>12:10 - 12:40</td>
+            <td><b>Learned Image and Video Compression for Machines (Wen-Hsiao Peng)</b>
+              <ol>
+                <li>Single-task, multi-task, and scalable bitstreams</li>
+                <li> Review of a few notable systems</li>
+                <li>Transfer learning from human perception to machine perception</li>
+              </ol></td>
+            <!-- <td><p>Wen-Hsiao Peng</p></td> -->
+          </tr>
+
+          <tr>
+            <td>12:40 - 12:50</td>
+            <td><b>Concluding Remarks</b> <br/></td>
+            <!-- <td><p></p></td> -->
+          </tr>
+
+        </tbody>
+      </table>
     </div>
-    
-    <!-- <div class="row">
-      <div class="col-sm-3">
-      </div>
-      <div class="col-sm-3">
-        <a href="https://github.com/a514514772/DISE-Domain-Invariant-Structure-Extraction" target="_blank"><p style="text-align: center;">
-        <img src="assets/icon/github_icon.png">
-        <br/>
-        Code (Github)
-      </p></a></div>
-      <div class="col-sm-3">
-        <a href="https://arxiv.org/abs/1903.12212" target="_blank"><p style="text-align: center;">
-        <img src="assets/icon/pdf_icon.png" height="120">
-        <br/>
-        Paper (arXiv)
-      </p></a></div>
-      <div class="col-sm-3">
-      </div></div>
-      </div> -->
-      
-      <div class="container" id="method">
-        <h2>Method</h2>
-        <p style="text-align:center;">
-          <a href="assets/adapted_NFWPO_v2.png" data-lightbox="nfwpo"><img src="assets/adapted_NFWPO_v2.png" width="60%"></a>
-        </p>
-        <br>
-        <p>
-          In our proposed method, we first identify the feasible set $\mathcal{C}(s_i)$ by the rate critic. To satisfy target bitrate,
-          $\mathcal{C}(s_i)$ includes the QP values $QP_i$ that the rate reward-to-go $Q_R$ is greater than or equal
-          to a threshold $\epsilon$ (see figure (a)).
-          Then, we utilize NFWPO to update the actor network in three consecutive steps. First, it identifies a feasible update direction
-          $\bar{c}(s)$ through distortion reward-to-go $Q_D$ and feasible set. Second, a reference action $\tilde{a_{s_i}}$ is evaluated by taking a small step along the update direction
-          from projected initial action $\prod\nolimits_{\mathcal{C}(s)}(\pi(s))$. Lastly, it learns the actor network through gradient decent
-          by minimizing the squared error between the reference action.
-        </p>
-      </div>
-      
-      <div class="container" id="paperdiv">
-        <h2>Paper</h2>
-        <a href="assets/paper.pdf"
-          download="Neural Frank-Wolfe Policy Optimization for Region-of-Interest Intra-Frame Coding with HEVC/H.265.pdf">
-          <div class="thumbs">
-        <img src="assets/thumbnails/paper_1.jpg" width="19%">
-        <img src="assets/thumbnails/paper_2.jpg" width="19%">
-        <img src="assets/thumbnails/paper_3.jpg" width="19%">
-        <img src="assets/thumbnails/paper_4.jpg" width="19%">
-        <img src="assets/thumbnails/paper_5.jpg" width="19%">
-      </div>
-    </a>
+  </div>
+
+  <div class="container" id="abstractdiv">
+  <h2>Demos</h2>
+  <h3>TransTIC: Transferring Transformer-based Image Compression from Human Perception to Machine Perception (ICCV 2023)
+    <a href="https://arxiv.org/abs/2306.05085" target="_blank"><img src="assets/icon/arxiv.jpg" height="35"></a>
+    <a href="https://github.com/NYCU-MAPL/TransTIC" target="_blank"><img src="assets/icon/GitHub-Mark.png" height="45"></a>
+  </h3>
+  <!-- <p>This work utilizes prompting techniques to transfer a well-trained Transformer-based image codec from human visualization to machine perception without fine-tuning the codec. As shown, TIC, the codec optimized for human visualization, tends to allocate more bits to complex regions, even if those regions are less relevant (e.g. background) to the downstream recognition tasks. In contrast, our method, which target machine perception, attempt to shift coding bits from the background regions to the foreground objects.</p> -->
+  <p style="text-align:center;">
+    <a href="assets/dog_demo.png" data-lightbox="arch"><img src="assets/dog_demo.png" data-lightbox="arch"
+        width="85%"></a>
+  </p>
+  <p style="text-align:center;"><a href="https://alan0817.github.io/TransTIC_project_page/">Project Page</a></p>
+
+  <div class="col-md-12">
+    <hr>
+  </div>
+
+  <h3>F-LIC: FPGA-based Learned Image Compression with a Fine-grained Pipeline (A-SSCC 2022)
+    <!-- <span style="display:inline-block; width: 5px;"></span>
+    <a href="https://ieeexplore.ieee.org/document/9980666" target="_blank"><img src="assets/icon/pdf_icon.png" height="35"></a> -->
+    <!-- <a href="https://github.com/NYCU-MAPL/TransTIC" target="_blank"><img src="assets/icon/GitHub-Mark.png" height="45"></a> -->
+  </h3>
+  <!-- <p>
+    The video below shows real-world rollouts of SPARTN policies given moving target objects.
+    Our reactive closed-loop policies are able to adjust their trajectories mid-execution to successfully navigate towards and grasp their targets.
+    All clips are sped up by 4x.
+  </p> -->
+  <div class="table-like" style="justify-content:space-evenly;margin:auto;padding:0px;">
+    <div>
+      <video id="realTimeCodec" width="800" playsinline autoplay loop muted>
+        <source src="assets/realTimeCodec.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+  </div>
+  <p style="text-align:center;">720p@30fps real-time learned codec on FPGA</p>
+
+  <!-- <div class="container" id="banner">
+    <h2>Outline</h2> -->
+    <!-- <p style="text-align:center;">
+      <a href="assets/architecture.png" data-lightbox="arch"><img src="assets/architecture.png" data-lightbox="arch"
+          width="85%"></a>
+    </p> -->
+    <!-- <br> -->
+      <!-- <h3>09:00 - 09:20: Overview of Learned Image and Video Compression (by Prof. Peng)</h3>
+      <ol>
+        <li>Introduction to end-to-end learned image and video compression</li>
+        <li>Rate-distortion performance of learned image and video compression</li>
+        <li>Recent developments in CLIC, JPEG AI, and MPEG video coding for machines</li>
+      </ol>
+
+      <h3>09:20 - 10:40: End-to-End Learned Image Compression (by Prof. Sun)</h3>
+      <ol>
+        <li>Elements of end-to-end learned image compression</li>
+        <li>Review of a few notable systems </li>
+        <li>Parallel-friendly learned entropy coding </li>
+        <li>Complexity analysis of learned image compression</li>
+        <li>Real-time implementation of learned image compression</li>
+      </ol>
+
+      <h3>10:40 - 11:00: Coffee Break</h3>
+
+      <h3>11:00 - 12:10: End-to-End Learned Video Compression (by Prof. Peng)</h3>
+      <ol>
+        <li>Elements of end-to-end learned video compression</li>
+        <li>Learned video compression with residual-based inter-frame coding</li>
+        <li>Learned video compression with conditional inter-frame coding</li>
+        <li>Complexity analysis of learned video compression</li>
+      </ol>
+
+      <h3>12:10 - 12:40: Learned Image and Video Compression for Machines (by Prof. Peng)</h3>
+      <ol>
+        <li>Single-task, multi-task, and scalable bitstreams</li>
+        <li> Review of a few notable systems</li>
+        <li>Transfer learning from human perception to machine perception</li>
+      </ol>
+
+      <h3>12:40 - 12:50: Concluding remarks</h3>
+    </div> -->
 
     <div class="container" id="exp_results">
-      <h2>Results</h2>
-      <p>
-        The reconstruction quality and QP assignment comparisons on images selected from DAVIS and COCO dataset. The
-        region highlighted by red outlines are the region of interest. Our method preserves more texture
-        details in ROI and shows less blocking artifacts by assigns lower QPs in ROI CTUs. <b>Click on image to enlarge it.</b>
-      </p>
-      <div class="col-md-6 text-center">
+      <h2>Speakers</h2>
+    <div class="container" id="exp_results">
+    <div class="row speaker" id="wpeng">
+      <div class="col-sm-4" style="text-align: center">
+        <a href="https://sites.google.com/g2.nctu.edu.tw/wpeng"><img class="people-pic" src="assets/Peng.png"
+          width="50%"></a>
+        <div class="people-name">
+          <a href="https://sites.google.com/g2.nctu.edu.tw/wpeng" style="font-size: 20px; text-align:center; margin:2px">Wen-Hsiao Peng</a>
+          <p style="font-size: medium; text-align:center;">National Yang Ming Chiao Tung University, Taiwan</p>
+        </div>
         <p style="text-align:center;">
-        <h3>Reconstruction Images</h3>
+          <a href="https://sites.google.com/g2.nctu.edu.tw/wpeng"><img src="assets/icon/web.png" height="20"> Website</a>
+          <a href="mailto:wpeng@cs.nctu.edu.tw"><img src="assets/icon/email.jpg" height="23"> Email</a>
+        </p>    
+      </div>
+      <div class="col-md-8">
+        <p class="speaker-bio">
+          Dr. Wen-Hsiao Peng (M’09-SM’13) received his Ph.D. degree from National Chiao Tung University (NCTU), 
+          Taiwan, in 2005. He was with the Intel Microprocessor Research Laboratory, USA, from 2000 to 2001. 
+          Since 2003, he has actively participated in the ISO/IEC and ITU-T video coding standardization process 
+          and contributed to the development of SVC, HEVC, and SCC standards. He was a Visiting Scholar with the IBM
+          Thomas J. Watson Research Center, USA, from 2015 to 2016. He has authored over 95 journal/conference 
+          papers and over 60 ISO/IEC and ITU-T standards contributions. Dr. Peng was Chair of the IEEE Circuits and 
+          Systems Society (CASS) Visual Signal Processing (VSPC) Technical Committee from 2020-2022. 
+          He was Technical Program Co-chair for 2021 IEEE VCIP, 2011 IEEE VCIP, 2017 IEEE ISPACS, and 2018 APSIPA ASC; 
+          Publication Chair for 2019 IEEE ICIP; Area Chair/Session Chair/Tutorial Speaker/Special Session Organizer 
+          for IEEE ICME, IEEE VCIP, and APSIPA ASC; and Track/Session Chair and Review Committee Member for IEEE ISCAS. 
+          He served as AEiC for Digital Communications for IEEE JETCAS and Associate Editor for IEEE TCSVT. 
+          He was Lead Guest Editor, Guest Editor and SEB Member for IEEE JETCAS, and Guest Editor for IEEE TCAS-II. 
+          He was Distinguished Lecturer of APSIPA and the IEEE CASS. Dr. Peng is also a Fellow of the Higher Education 
+          Academy (FHEA).
         </p>
       </div>
-      <div class="col-md-6 text-center">
-        <p style="text-align:center;">
-        <h3>QP Assignment Heatmap</h3>
-        </p>
-      </div>
-
-      <div id="exp1">
-        <div class="col-md-6 vcenter">
-          <p style="text-align:center;">
-            <a href="assets/figures/subjective_cqp_goat_69.png" data-lightbox="Exp1"><img
-                src="assets/figures/subjective_cqp_goat_69.png" width="100%"></a>
-          </p>
-        </div><!--
-      --><div class="col-md-6 vcenter">
-          <p style="text-align:center;">
-            <a href="assets/figures/heatmap_goat_69.png" data-lightbox="Exp1"><img
-                src="assets/figures/heatmap_goat_69.png" width="100%"></a>
-          </p>
-        </div>
-      </div>
-      <div class="col-md-12">
-        <hr>
-      </div>
-      <div id="exp2">
-        <div class="col-md-6 vcenter">
-          <p style="text-align:center;">
-            <a href="assets/figures/COCOw_512x320_25_1133_f490.png" data-lightbox="Exp2"><img
-                src="assets/figures/COCOw_512x320_25_1133_f490.png" width="100%"></a>
-          </p>
-        </div><!--
-      --><div class="col-md-6 vcenter">
-          <p style="text-align:center;">
-            <a href="assets/figures/COCOw_512x320_25_f490heatmap37_heatmap.png" data-lightbox="Exp2"><img
-                src="assets/figures/COCOw_512x320_25_f490heatmap37_heatmap.png" width="100%"></a>
-          </p>
-        </div>
-      </div>
-      <div class="col-md-12">
-        <hr>
-      </div>
-      <div id="exp2">
-        <div class="col-md-6 vcenter">
-          <p style="text-align:center;">
-            <a href="assets/figures/COCOw_512x320_25_1133_f1210.png" data-lightbox="Exp3"><img
-                src="assets/figures/COCOw_512x320_25_1133_f1210.png" width="100%"></a>
-          </p>
-        </div><!--
-      --><div class="col-md-6 vcenter">
-          <p style="text-align:center;">
-            <a href="assets/figures/COCOw_512x320_25_f1210heatmap37_heatmap.png" data-lightbox="Exp3"><img
-                src="assets/figures/COCOw_512x320_25_f1210heatmap37_heatmap.png" width="100%"></a>
-          </p>
-        </div>
-      </div>
-
     </div>
+
+    <div class="col-md-12">
+      <hr>
+    </div>
+
+    <div class="row speaker" id="hsun">
+      <div class="col-sm-4" style="text-align: center">
+          <a href="https://scholar.google.com/citations?user=LtkiCFcAAAAJ&hl=en" data-lightbox="arch"><img class="people-pic" src="assets/Sun_revise.png" data-lightbox="arch"
+              width="50%"></a>
+          <p style="text-align:center;">
+            <div class="people-name">
+              <a href="https://scholar.google.com/citations?user=LtkiCFcAAAAJ&hl=en" style="font-size: 20px; text-align:center; margin:2px">Heming Sun</a>
+              <p style="font-size: medium; text-align:center;">Yokohama National University, Japan</p>
+            </div>
+          </p>
+          <p style="text-align:center;">
+            <a href="https://scholar.google.com/citations?user=LtkiCFcAAAAJ&hl=en"><img src="assets/icon/web.png" height="20"> Website </a>
+            <a href="mailto:sun-heming-vg@ynu.ac.jp"><img src="assets/icon/email.jpg" height="23"> Email</a>
+          </p>    
+      </div>
+      <div class="col-md-8">
+        <p class="speaker-bio">
+          Dr. Heming Sun received the B.E. degree in electronic engineering from Shanghai Jiao Tong University, 
+          Shanghai, China, in 2011, and received the M.E. degree from Waseda University and Shanghai Jiao Tong 
+          University, in 2012 and 2014, respectively, through a double-degree program. In 2017 he earned his 
+          Ph.D. degree from Waseda University through the embodiment informatics program supported by Ministry of 
+          Education, Culture, Sports, Science and Technology (MEXT). He was a researcher at NEC Central Research 
+          Laboratories from 2017 to 2018. He was an assistant professor at Waseda University, Japan, during 2018 to 
+          2023. He is now associate professor at Yokohama National University, Japan. He was selected as Japan 
+          Science and Technology Agency (JST) PRESTO Researcher, during 2019 to 2023. His interests are in algorithms 
+          and VLSI architectures for image/video processing and neural networks.
+          He participated in the 8K HEVC decoder chip design, which won the ISSCC 2016 Takuo Sugano Award for 
+          Outstanding Far-East Paper. He also got several awards including the Best Paper Award of VCIP 2020, 
+          Top-10 Best Paper of PCS 2021, and IEEE Computer Society Japan Chapter Young Author Award 2021.
+          Regarding the academic achievements and activities, he has published over 80 peer-reviewed journal 
+          and conference papers (e.g. TMM, JSSC, TCAS-I, ISSCC, CVPR, VCIP, ISCAS). He held a special session on 
+          "Neural Network Technology in Future Image/Video Coding" at Picture Coding Symposium (PCS) 2019 and 
+          co-organize the special session on “Towards Practical Learning-based Image and Video Coding” at PCS 2022. 
+          He is invited to give a talk about “Deep Learning Method for Image Compression” by Information Processing 
+          Society of Japan. He also served as reviewers for many flagship CAS-society journals such as TCSVT, 
+          TCAS-I, TCAS-II.  
+        </p>
+      </div>
+    </div>
+    </div>
+
+    <!-- <div class="container" id="exp_results">
+      <h2>About Us</h2>
+      <h3>Prof. Wen-Hsiao Peng</h3>
+      <h4>Computer Science Dept., National Yang Ming Chiao Tung University, Taiwan</h4>
+      <p style="text-align:center;">
+        <a href="https://sites.google.com/g2.nctu.edu.tw/wpeng" data-lightbox="arch"><img class="people-pic" src="assets/Peng.png"
+            width="25%"></a>
+      </p>
+      <p style="text-align:center;">
+        <a href="https://sites.google.com/g2.nctu.edu.tw/wpeng"><img src="assets/icon/web.png" height="20"> Website</a>
+        <a href="mailto:wpeng@cs.nctu.edu.tw"><img src="assets/icon/email.jpg" height="23"> Email</a>
+      </p>      
+      <br>
+
+      <p>
+        Dr. Wen-Hsiao Peng (M’09-SM’13) received his Ph.D. degree from National Chiao Tung University (NCTU), 
+        Taiwan, in 2005. He was with the Intel Microprocessor Research Laboratory, USA, from 2000 to 2001. 
+        Since 2003, he has actively participated in the ISO/IEC and ITU-T video coding standardization process 
+        and contributed to the development of SVC, HEVC, and SCC standards. He was a Visiting Scholar with the IBM
+         Thomas J. Watson Research Center, USA, from 2015 to 2016. He has authored over 95 journal/conference 
+         papers and over 60 ISO/IEC and ITU-T standards contributions. Dr. Peng was Chair of the IEEE Circuits and 
+         Systems Society (CASS) Visual Signal Processing (VSPC) Technical Committee from 2020-2022. 
+         He was Technical Program Co-chair for 2021 IEEE VCIP, 2011 IEEE VCIP, 2017 IEEE ISPACS, and 2018 APSIPA ASC; 
+         Publication Chair for 2019 IEEE ICIP; Area Chair/Session Chair/Tutorial Speaker/Special Session Organizer 
+         for IEEE ICME, IEEE VCIP, and APSIPA ASC; and Track/Session Chair and Review Committee Member for IEEE ISCAS. 
+         He served as AEiC for Digital Communications for IEEE JETCAS and Associate Editor for IEEE TCSVT. 
+         He was Lead Guest Editor, Guest Editor and SEB Member for IEEE JETCAS, and Guest Editor for IEEE TCAS-II. 
+         He was Distinguished Lecturer of APSIPA and the IEEE CASS. Dr. Peng is also a Fellow of the Higher Education 
+         Academy (FHEA).
+      </p>
+
+      <div class="col-md-12">
+        <hr>
+      </div>
+
+      <h3>Prof. Heming Sun</h3>
+      <h4>Waseda Research Institute for Science and Engineering, Waseda University, Japan</h4>
+      <p style="text-align:center;">
+        <a href="https://scholar.google.com/citations?user=LtkiCFcAAAAJ&hl=en" data-lightbox="arch"><img class="people-pic" src="assets/Sun_revise.png" data-lightbox="arch"
+            width="25%"></a>
+      </p>
+      <p style="text-align:center;">
+        <a href="https://scholar.google.com/citations?user=LtkiCFcAAAAJ&hl=en"><img src="assets/icon/web.png" height="20"> Website </a>
+        <a href="mailto:hemingsun@aoni.waseda.jp"><img src="assets/icon/email.jpg" height="23"> Email</a>
+      </p>    
+      <br>
+      <p>
+        Dr. Heming Sun received the B.E. degree in electronic engineering from Shanghai Jiao Tong University, 
+        Shanghai, China, in 2011, and received the M.E. degree from Waseda University and Shanghai Jiao Tong 
+        University, in 2012 and 2014, respectively, through a double-degree program. In 2017 he earned his 
+        Ph.D. degree from Waseda University through the embodiment informatics program supported by Ministry of 
+        Education, Culture, Sports, Science and Technology (MEXT). He was a researcher at NEC Central Research 
+        Laboratories from 2017 to 2018. He was an assistant professor at Waseda University, Japan, during 2018 to 
+        2023. He is now associate professor at Yokohama National University, Japan. He was selected as Japan 
+        Science and Technology Agency (JST) PRESTO Researcher, during 2019 to 2023. His interests are in algorithms 
+        and VLSI architectures for image/video processing and neural networks.
+        He participated in the 8K HEVC decoder chip design, which won the ISSCC 2016 Takuo Sugano Award for 
+        Outstanding Far-East Paper. He also got several awards including the Best Paper Award of VCIP 2020, 
+        Top-10 Best Paper of PCS 2021, and IEEE Computer Society Japan Chapter Young Author Award 2021.
+        Regarding the academic achievements and activities, he has published over 80 peer-reviewed journal 
+        and conference papers (e.g. TMM, JSSC, TCAS-I, ISSCC, CVPR, VCIP, ISCAS). He held a special session on 
+        "Neural Network Technology in Future Image/Video Coding" at Picture Coding Symposium (PCS) 2019 and 
+        co-organize the special session on “Towards Practical Learning-based Image and Video Coding” at PCS 2022. 
+        He is invited to give a talk about “Deep Learning Method for Image Compression” by Information Processing 
+        Society of Japan. He also served as reviewers for many flagship CAS-society journals such as TCSVT, 
+        TCAS-I, TCAS-II.        
+      </p> -->
 
     <div id=footer><br></div>
     <!-- Javascript includes -->
@@ -196,6 +410,13 @@
     <script src="assets/bootstrap.js"></script>
     <script src="assets/lightbox2-2.11.3/dist/js/lightbox.js"></script>
 
+    <script>
+      for (video of document.getElementsByTagName("video")) {
+           video.setAttribute("playsinline", "");
+           video.setAttribute("muted", "");
+           video.play();
+      }
+    </script>
 
 </body>
 
